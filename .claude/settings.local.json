@@ -25,7 +25,20 @@
       "Bash(git config:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git branch:*)"
+      "Bash(git branch:*)",
+      "Bash(BUILD_INSTRUCTIONS.md)",
+      "Bash(COMO_GERAR_APK_RELEASE.md)",
+      "Bash(android/app/proguard-rules.pro)",
+      "Bash(git push:*)",
+      "Bash(gh release create:*)",
+      "Bash(\"Ricardo-Sidney-Barbeiro-v1.0-DEBUG.apk\" )",
+      "Bash(where gh:*)",
+      "Bash(winget install:*)",
+      "Bash(export PATH=\"$PATH:/c/Program Files/GitHub CLI\")",
+      "Bash(gh:*)",
+      "Bash(\"build/app/outputs/flutter-apk/app-debug.apk#Ricardo-Sidney-Barbeiro-v1.0-DEBUG.apk\" )",
+      "Bash(flutter build:*)",
+      "Bash(\"build/app/outputs/flutter-apk/app-debug.apk#Ricardo-Sidney-Barbeiro-v1.0.1-DEBUG.apk\" )"
     ],
     "deny": [],
     "ask": []

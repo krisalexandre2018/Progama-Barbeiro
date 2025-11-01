@@ -22,6 +22,22 @@ PLANO_*.md
 RESUMO_*.md
 
 # ========================================
+# Documentação (arquivos .md)
+# ========================================
+*.md
+!README.md
+*.html
+*.bat
+README_*.md
+CHECKLIST_*.md
+COMO_*.md
+GUIA_*.md
+PLAY_STORE_*.md
+PRIVACY_POLICY.md
+RELEASE_*.md
+AAB_*.md
+
+# ========================================
 # Python
 # ========================================
 __pycache__/

@@ -301,6 +301,12 @@ Embora este seja um projeto privado para a barbearia, sugestões são bem-vindas
 4. Push para a branch (`git push origin feature/MinhaFeature`)
 5. Abra um Pull Request
 
+## 📞 Contato
+
+**Barbearia Ricardo Sidney**
+- 📧 Email: kris.alexandre2018@gmail.com
+- 📱 WhatsApp: +55 31 8538-2104
+
 ## 📄 Licença
 
 Este projeto é propriedade privada de Kristian Alexandre. Todos os direitos reservados.

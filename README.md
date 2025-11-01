@@ -303,13 +303,8 @@ Embora este seja um projeto privado para a barbearia, sugestões são bem-vindas
 
 ## 📄 Licença
 
-Este projeto é propriedade privada de Ricardo Sidney Barbeiro. Todos os direitos reservados.
+Este projeto é propriedade privada de Kristian Alexandre. Todos os direitos reservados.
 
-## 📞 Contato
-
-**Ricardo Sidney Barbeiro**
-- WhatsApp: +55 31 8538-2104
-- Localização: Belo Horizonte, MG
 
 ---
 

@@ -1,0 +1,11 @@
+0000000000000000000000000000000000000000 5a1c9764a9c46b15fd5db9c8355051fc5d1d09fc Kristian A <Kris.alexandre2018@gmail.com> 1760272392 -0300	commit (initial): Primeira versão do app
+5a1c9764a9c46b15fd5db9c8355051fc5d1d09fc 2cf960401dd24547063170e658bdb32a9d2b253d Kristian A <Kris.alexandre2018@gmail.com> 1760272895 -0300	commit (amend): Primeira versão do app
+2cf960401dd24547063170e658bdb32a9d2b253d 210ce78b598037bbe4a5bbfbf36f473a1c6d91d1 Kristian A <Kris.alexandre2018@gmail.com> 1760273026 -0300	commit (amend): Primeira versão do app
+210ce78b598037bbe4a5bbfbf36f473a1c6d91d1 b40eee7c531a3a9a2caaa51574d7c3fc5eccbbc2 Kristian A <Kris.alexandre2018@gmail.com> 1760273090 -0300	pull origin main --rebase (start): checkout b40eee7c531a3a9a2caaa51574d7c3fc5eccbbc2
+b40eee7c531a3a9a2caaa51574d7c3fc5eccbbc2 cb30c867536a2701ae3c802181e0de030a46e366 Kristian A <Kris.alexandre2018@gmail.com> 1760273090 -0300	pull origin main --rebase (pick): Primeira versão do app
+cb30c867536a2701ae3c802181e0de030a46e366 cb30c867536a2701ae3c802181e0de030a46e366 Kristian A <Kris.alexandre2018@gmail.com> 1760273090 -0300	pull origin main --rebase (finish): returning to refs/heads/master
+cb30c867536a2701ae3c802181e0de030a46e366 0000000000000000000000000000000000000000 Kristian A <Kris.alexandre2018@gmail.com> 1760273217 -0300	Branch: renamed refs/heads/master to refs/heads/main
+0000000000000000000000000000000000000000 cb30c867536a2701ae3c802181e0de030a46e366 Kristian A <Kris.alexandre2018@gmail.com> 1760273217 -0300	Branch: renamed refs/heads/master to refs/heads/main
+cb30c867536a2701ae3c802181e0de030a46e366 95460669c43eb4dc9233796be68802cdc321d1fe Kristian A <Kris.alexandre2018@gmail.com> 1760273566 -0300	commit: Primeira versão do app
+95460669c43eb4dc9233796be68802cdc321d1fe a51d7a4c211fe54c834906ed1f1de276810f843a Kristian A <Kris.alexandre2018@gmail.com> 1760274089 -0300	commit: Primeira versão do app
+a51d7a4c211fe54c834906ed1f1de276810f843a c4f504661917e2733be4a6d441ba6392b0f4145c Kristian A <Kris.alexandre2018@gmail.com> 1760274292 -0300	commit: Versão 2 build.yml

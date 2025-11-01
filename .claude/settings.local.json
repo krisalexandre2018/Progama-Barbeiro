@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/newda/OneDrive/Área de Trabalho/barbearia_flutter/lib/screens/**)",
+      "Bash(xcopy:*)",
+      "Read(//c/Users/newda/OneDrive/Área de Trabalho/barbearia_flutter/**)",
+      "mcp__ide__getDiagnostics",
+      "Bash(flutter pub get:*)",
+      "Bash(flutter analyze:*)",
+      "Bash(flutter --version:*)",
+      "Bash(dart run:*)",
+      "Bash(flutter emulators:*)",
+      "Bash(flutter run:*)",
+      "Bash(flutter devices:*)",
+      "Bash(dir:*)",
+      "Bash(nul)",
+      "Bash(findstr:*)",
+      "Bash(cat:*)",
+      "Bash(if [ -f .env ])",
+      "Bash(then cp .env env-BACKUP-20251101.txt)",
+      "Bash(else echo \"⚠️ Arquivo .env não encontrado\")",
+      "Bash(fi)",
+      "Bash(flutter clean:*)",
+      "Bash(git init:*)",
+      "Bash(git config:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git branch:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

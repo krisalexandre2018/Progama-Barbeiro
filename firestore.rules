@@ -1,0 +1,106 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ==================== REGRAS PARA O APP ATUAL ====================
+    // O app usa SHA-256 do CPF como ID, NÃO usa Firebase Authentication
+    // Para produção, considere migrar para Firebase Auth
+
+    // ==================== DESENVOLVIMENTO ====================
+    // ⚠️ TEMPORÁRIO: Acesso total para desenvolvimento
+    // Comente esta seção e descomente "PRODUÇÃO" quando for publicar
+
+    match /{document=**} {
+      allow read, write: if true;
+    }
+
+    // ==================== PRODUÇÃO (comentado) ====================
+    // Descomente esta seção quando for para produção
+    // e comente a seção de DESENVOLVIMENTO acima
+
+    /*
+    // USUÁRIOS
+    match /usuarios/{userId} {
+      // Qualquer um pode criar conta
+      allow create: if true;
+
+      // Apenas leitura/escrita própria (sem autenticação por enquanto)
+      // TODO: Implementar Firebase Auth para segurança real
+      allow read, update, delete: if true;
+    }
+
+    // ADMINISTRADORES
+    match /admins/{adminId} {
+      // Apenas leitura para validação de login
+      allow read: if true;
+
+      // Criação/atualização apenas via console ou scripts autorizados
+      allow write: if false;
+    }
+
+    // AGENDAMENTOS
+    match /agendamentos/{appointmentId} {
+      // Leitura pública (para ver horários disponíveis)
+      allow read: if true;
+
+      // Criação/atualização de horários
+      // Admin deveria criar, mas como não temos auth, permitimos
+      allow create, update: if true;
+
+      // Deleção apenas para admin (sem auth, permitir por enquanto)
+      allow delete: if true;
+    }
+
+    // RECUPERAÇÃO DE SENHA
+    match /recuperacao_senha/{docId} {
+      // Leitura/escrita para recuperação de senha
+      allow read, write: if true;
+    }
+    */
+
+    // ==================== PRODUÇÃO COM FIREBASE AUTH ====================
+    // Use estas regras se migrar o app para Firebase Authentication
+
+    /*
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isSignedIn() &&
+             get(/databases/$(database)/documents/usuarios/$(request.auth.uid)).data.isAdmin == true;
+    }
+
+    match /usuarios/{userId} {
+      allow read: if isSignedIn() && (isOwner(userId) || isAdmin());
+      allow create: if isSignedIn() && isOwner(userId);
+      allow update: if isSignedIn() && isOwner(userId) &&
+                       !request.resource.data.diff(resource.data).affectedKeys().hasAny(['isAdmin']);
+      allow delete: if isSignedIn() && (isOwner(userId) || isAdmin());
+    }
+
+    match /agendamentos/{appointmentId} {
+      allow read: if isSignedIn();
+      allow create: if isAdmin() && request.resource.data.status == 'livre';
+      allow update: if isSignedIn() && (
+        (resource.data.status == 'livre' &&
+         request.resource.data.status == 'agendado' &&
+         request.resource.data.cliente_cpf == request.auth.uid) ||
+        (resource.data.cliente_cpf == request.auth.uid &&
+         resource.data.status == 'agendado' &&
+         request.resource.data.status == 'livre') ||
+        isAdmin()
+      );
+      allow delete: if isAdmin();
+    }
+
+    match /recuperacao_senha/{docId} {
+      allow read, write: if isSignedIn();
+    }
+    */
+  }
+}

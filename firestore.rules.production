@@ -1,0 +1,141 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ==================== REGRAS DE PRODUÇÃO ====================
+    // App: Ricardo Sidney Barbeiro
+    // Autenticação: SHA-256 do CPF (sem Firebase Auth)
+    // Data: 01/11/2025
+    // ⚠️ IMPORTANTE: Estas regras são para PRODUÇÃO
+
+    // ==================== USUÁRIOS ====================
+    match /usuarios/{userId} {
+      // Qualquer pessoa pode criar conta (registro)
+      allow create: if true;
+
+      // Leitura: Qualquer pessoa pode ler (necessário para login)
+      allow read: if true;
+
+      // Atualização: Apenas para incrementar/decrementar agendamentos_ativos
+      // Previne modificação de outros campos críticos
+      allow update: if request.resource.data.diff(resource.data).affectedKeys()
+                       .hasOnly(['agendamentos_ativos']);
+
+      // Deleção: Bloqueada (segurança)
+      allow delete: if false;
+    }
+
+    // ==================== ADMINISTRADORES ====================
+    match /admins/{adminId} {
+      // Leitura: Permitida (necessário para validar login admin)
+      allow read: if true;
+
+      // Escrita: Bloqueada (admin só é criado via console/script)
+      allow write: if false;
+    }
+
+    // ==================== AGENDAMENTOS ====================
+    match /agendamentos/{appointmentId} {
+      // Leitura: Todos podem ler (para ver horários disponíveis)
+      allow read: if true;
+
+      // Criação: Permitida (admin cria horários)
+      // Validações:
+      // - Deve ter campo 'status'
+      // - Deve ter campo 'data_iso'
+      // - Deve ter campo 'hora'
+      allow create: if request.resource.data.keys().hasAll(['status', 'data_iso', 'hora']);
+
+      // Atualização: Permitida com validações
+      // Regras:
+      // 1. Se status muda de 'livre' para 'agendado':
+      //    - Deve adicionar cliente_cpf e cliente_nome
+      // 2. Se status muda de 'agendado' para 'livre':
+      //    - Deve remover cliente_cpf e cliente_nome
+      // 3. Não permitir mudança de data/hora em agendamento marcado
+      allow update: if
+        // Agendar horário (livre -> agendado)
+        (resource.data.status == 'livre' &&
+         request.resource.data.status == 'agendado' &&
+         request.resource.data.keys().hasAll(['cliente_cpf', 'cliente_nome']) &&
+         request.resource.data.data_iso == resource.data.data_iso &&
+         request.resource.data.hora == resource.data.hora) ||
+
+        // Cancelar agendamento (agendado -> livre)
+        (resource.data.status == 'agendado' &&
+         request.resource.data.status == 'livre' &&
+         !request.resource.data.keys().hasAny(['cliente_cpf', 'cliente_nome']) &&
+         request.resource.data.data_iso == resource.data.data_iso &&
+         request.resource.data.hora == resource.data.hora) ||
+
+        // Atualização de campos administrativos (sem mudar data/hora)
+        (request.resource.data.data_iso == resource.data.data_iso &&
+         request.resource.data.hora == resource.data.hora);
+
+      // Deleção: Bloqueada (horários não devem ser deletados, apenas liberados)
+      allow delete: if false;
+    }
+
+    // ==================== RECUPERAÇÃO DE SENHA ====================
+    match /recuperacao_senha/{docId} {
+      // Criação: Permitida (gerar código de recuperação)
+      allow create: if request.resource.data.keys().hasAll(['codigo', 'usado', 'criado_em']);
+
+      // Leitura: Permitida (verificar código)
+      allow read: if true;
+
+      // Atualização: Permitida (marcar código como usado)
+      allow update: if request.resource.data.keys().hasAll(['codigo', 'usado', 'criado_em']);
+
+      // Deleção: Bloqueada (manter histórico)
+      allow delete: if false;
+    }
+
+    // ==================== LOGS (OPCIONAL) ====================
+    // Caso queira adicionar logs de ações no futuro
+    match /logs/{logId} {
+      // Criação: Permitida (registrar ações)
+      allow create: if true;
+
+      // Leitura: Bloqueada (apenas admin via console)
+      allow read: if false;
+
+      // Atualização/Deleção: Bloqueadas
+      allow update, delete: if false;
+    }
+
+    // ==================== BLOQUEAR TUDO MAIS ====================
+    // Qualquer outra coleção não especificada é bloqueada
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+
+// ==================== NOTAS IMPORTANTES ====================
+//
+// 1. SEGURANÇA:
+//    - Estas regras NÃO usam Firebase Authentication
+//    - Validação é feita por SHA-256 do CPF no app
+//    - Para segurança máxima, considere migrar para Firebase Auth
+//
+// 2. LIMITAÇÕES:
+//    - Qualquer pessoa pode ler usuários (necessário para login)
+//    - Não há rate limiting (considere Firebase App Check)
+//    - CPF em SHA-256 pode ser brute-forced (milhões de combinações)
+//
+// 3. MELHORIAS FUTURAS:
+//    - Implementar Firebase Authentication
+//    - Adicionar Firebase App Check (anti-bot)
+//    - Implementar rate limiting via Cloud Functions
+//    - Adicionar validação de CPF válido
+//
+// 4. MONITORAMENTO:
+//    - Monitore o console Firebase para abusos
+//    - Configure alertas de uso excessivo
+//    - Revise logs regularmente
+//
+// 5. DEPLOY:
+//    - Teste as regras no Firebase Console (aba "Rules Playground")
+//    - Use o comando: firebase deploy --only firestore:rules
+//    - Ou copie e cole no Firebase Console manualmente

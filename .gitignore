@@ -13,6 +13,15 @@ google-services.json
 GoogleService-Info.plist
 
 # ========================================
+# Claude Code / IA (desenvolvimento)
+# ========================================
+.claude/
+CLAUDE.md
+DIAGNOSTICO_*.md
+PLANO_*.md
+RESUMO_*.md
+
+# ========================================
 # Python
 # ========================================
 __pycache__/
